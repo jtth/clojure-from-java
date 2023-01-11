@@ -19,6 +19,8 @@ public class Main {
         // Clojure fns are callable
         Callable fn = (Callable) callClojure("example.impl", "create-hello-fn");
         System.out.println("fn says " + fn.call());
+        System.out.println("from Kotlin " + new FromKotlin().callClj());
+
 
         // Clojure can implement interfaces
         FileFilter filter = (FileFilter) callClojure("example.impl", "create-never-filter");

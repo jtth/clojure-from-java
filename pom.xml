@@ -2,38 +2,87 @@
 
 <project  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://maven.apache.org/POM/4.0.0" >
  <dependencies>
+   <dependency>
+     <artifactId>kotlin-stdlib</artifactId>
+     <groupId>org.jetbrains.kotlin</groupId>
+     <version>${kotlin.version}</version>
+   </dependency>
     <dependency>
       <groupId>org.clojure</groupId>
       <artifactId>clojure</artifactId>
-      <version>1.10.1</version>
+      <version>${clojure.version}</version>
     </dependency>
  </dependencies>
  <version>0.0</version>
  <groupId>example</groupId>
  <name>clojure-from-java</name>
  <artifactId>clojure-from-java</artifactId>
- <properties>
-  <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
- </properties>
+  <properties>
+    <maven.compiler.source>17</maven.compiler.source>
+    <maven.compiler.target>17</maven.compiler.target>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <kotlin.version>1.8.0</kotlin.version>
+    <clojure.version>1.11.1</clojure.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
  <modelVersion>4.0.0</modelVersion>
- <build>
-   <pluginManagement>
-     <plugins>
-       <plugin>
-         <groupId>org.apache.maven.plugins</groupId>
-         <artifactId>maven-compiler-plugin</artifactId>
-         <version>3.8.1</version>
-         <configuration>
-           <!-- put your configurations here -->
-         </configuration>
-       </plugin>
+  <build>
+    <plugins>
+
+      <plugin>
+        <artifactId>kotlin-maven-plugin</artifactId>
+        <configuration>
+          <jvmTarget>${maven.compiler.target}</jvmTarget>
+        </configuration>
+        <executions>
+          <execution>
+            <id>compile</id>
+            <phase>process-sources</phase>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+          </execution>
+
+          <execution>
+            <id>test-compile</id>
+            <phase>process-test-sources</phase>
+            <goals>
+              <goal>test-compile</goal>
+            </goals>
+          </execution>
+        </executions>
+        <groupId>org.jetbrains.kotlin</groupId>
+        <version>${kotlin.version}</version>
+      </plugin>
+
+      <plugin>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.10.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>compile</goal>
+            </goals>
+            <id>compile</id>
+            <phase>compile</phase>
+          </execution>
+          <execution>
+            <goals>
+              <goal>testCompile</goal>
+            </goals>
+            <id>testCompile</id>
+            <phase>test-compile</phase>
+          </execution>
+        </executions>
+        <groupId>org.apache.maven.plugins</groupId>
+      </plugin>
     </plugins>
-   </pluginManagement>
-  <sourceDirectory>src/java</sourceDirectory>
-  <resources>
-   <resource>
-    <directory>src/clojure</directory>
-   </resource>
-  </resources>
- </build>
+
+    <resources>
+      <resource>
+        <directory>src/clojure</directory>
+      </resource>
+    </resources>
+    <sourceDirectory>src/java</sourceDirectory>
+  </build>
 </project>

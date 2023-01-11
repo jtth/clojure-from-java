@@ -1,7 +1,7 @@
 (ns example.impl)
 
 ;; all Clojure fns are callable
-(defn create-hello-fn [] (fn [] "hello"))
+(defn create-hello-fn ^String [] (fn [] "hello"))
 
 ;; implement Java interface with reify
 (defn create-never-filter
